@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 15, 15 )
+
+[node name="Player" type="KinematicBody2D" groups=[
+"players",
+]]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Player" type="Polygon2D" parent="."]
+color = Color( 0.796078, 0.113725, 0.113725, 1 )
+polygon = PoolVector2Array( -15, 15, 15, 15, 15, -15, -15, -15 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( -15, 15, 15, 15, 15, -15, -15, -15 )
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="hitbox" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 1 )
