@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scripts/GameUI.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Fonts/MenuFont.tres" type="DynamicFont" id=2]
@@ -9,6 +9,34 @@ bg_color = Color( 0.145098, 0.145098, 0.145098, 0.352941 )
 
 [sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0.6, 0.6, 0.6, 0.886275 )
+
+[sub_resource type="InputEventAction" id=3]
+action = "ui_up"
+pressed = true
+
+[sub_resource type="ShortCut" id=4]
+shortcut = SubResource( 3 )
+
+[sub_resource type="InputEventAction" id=5]
+action = "ui_left"
+pressed = true
+
+[sub_resource type="ShortCut" id=6]
+shortcut = SubResource( 5 )
+
+[sub_resource type="InputEventAction" id=7]
+action = "ui_right"
+pressed = true
+
+[sub_resource type="ShortCut" id=8]
+shortcut = SubResource( 7 )
+
+[sub_resource type="InputEventAction" id=9]
+action = "ui_down"
+pressed = true
+
+[sub_resource type="ShortCut" id=10]
+shortcut = SubResource( 9 )
 
 [node name="UI" type="Control"]
 pause_mode = 2
@@ -67,11 +95,97 @@ custom_constants/margin_left = 100
 margin_left = 100.0
 margin_right = 700.0
 margin_bottom = 600.0
+custom_constants/separation = 100
 alignment = 1
 
 [node name="ProgressBar" type="ProgressBar" parent="QTEPrompt/MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
-margin_top = 285.0
+margin_top = 125.0
 margin_right = 600.0
-margin_bottom = 315.0
+margin_bottom = 155.0
 rect_min_size = Vector2( 0, 30 )
 percent_visible = false
+
+[node name="GridContainer" type="GridContainer" parent="QTEPrompt/MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
+margin_top = 255.0
+margin_right = 600.0
+margin_bottom = 475.0
+custom_constants/vseparation = 20
+custom_constants/hseparation = 50
+columns = 3
+
+[node name="Button" type="Button" parent="QTEPrompt/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 166.0
+margin_bottom = 60.0
+text = "UP"
+
+[node name="TopButton" type="Button" parent="QTEPrompt/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+margin_left = 216.0
+margin_right = 382.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 0, 60 )
+size_flags_horizontal = 3
+action_mode = 0
+shortcut = SubResource( 4 )
+text = "JUMP"
+
+[node name="Button3" type="Button" parent="QTEPrompt/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 432.0
+margin_right = 598.0
+margin_bottom = 60.0
+text = "UP"
+
+[node name="LeftButton" type="Button" parent="QTEPrompt/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+margin_top = 80.0
+margin_right = 166.0
+margin_bottom = 140.0
+rect_min_size = Vector2( 0, 60 )
+size_flags_horizontal = 3
+action_mode = 0
+shortcut = SubResource( 6 )
+text = "CROUCH"
+
+[node name="Button5" type="Button" parent="QTEPrompt/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 216.0
+margin_top = 80.0
+margin_right = 382.0
+margin_bottom = 140.0
+text = "UP"
+
+[node name="RightButton" type="Button" parent="QTEPrompt/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+margin_left = 432.0
+margin_top = 80.0
+margin_right = 598.0
+margin_bottom = 140.0
+rect_min_size = Vector2( 0, 60 )
+size_flags_horizontal = 3
+action_mode = 0
+shortcut = SubResource( 8 )
+text = "ATTACK"
+
+[node name="Button7" type="Button" parent="QTEPrompt/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_top = 160.0
+margin_right = 166.0
+margin_bottom = 220.0
+text = "UP"
+
+[node name="BottomButton" type="Button" parent="QTEPrompt/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+margin_left = 216.0
+margin_top = 160.0
+margin_right = 382.0
+margin_bottom = 220.0
+rect_min_size = Vector2( 0, 60 )
+size_flags_horizontal = 3
+action_mode = 0
+shortcut = SubResource( 10 )
+
+[node name="Button9" type="Button" parent="QTEPrompt/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 432.0
+margin_top = 160.0
+margin_right = 598.0
+margin_bottom = 220.0
+text = "UP"

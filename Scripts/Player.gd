@@ -29,12 +29,9 @@ func execute_action(action: String):
 		jump = true
 		
 func kill():
-	print("killed")
-	#print("killed by ", killer)
 	queue_free()
 	
 func _on_hitbox_collision(value):
-	print("collision!")
 	print(value.name)
 	var collider = value.get_parent()
 	print(collider.name)
