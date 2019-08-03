@@ -1,17 +1,69 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
+[ext_resource path="res://Assets/World/Weapon.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 25, 25 )
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 15, 15 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "Attack"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Weapon:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Weapon:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 10, 0 ), Vector2( 40, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Weapon/Area2D:monitoring")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
 
 [node name="Player" type="KinematicBody2D" groups=[
 "players",
 ]]
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_group_": true
-}
+
+[node name="Weapon" type="Sprite" parent="."]
+visible = false
+position = Vector2( 40, 0 )
+scale = Vector2( 0.7, 0.1 )
+texture = ExtResource( 2 )
+
+[node name="Area2D" type="Area2D" parent="Weapon"]
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Weapon/Area2D"]
+shape = SubResource( 3 )
 
 [node name="Player" type="Polygon2D" parent="."]
 color = Color( 0.796078, 0.113725, 0.113725, 1 )
@@ -21,6 +73,14 @@ polygon = PoolVector2Array( -15, 15, 15, 15, 15, -15, -15, -15 )
 polygon = PoolVector2Array( -15, 15, 15, 15, 15, -15, -15, -15 )
 
 [node name="Area2D" type="Area2D" parent="."]
+editor/display_folded = true
 
 [node name="hitbox" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 1 )
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2( -17, 0 )
+cast_to = Vector2( 0, -50 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Attack = SubResource( 2 )

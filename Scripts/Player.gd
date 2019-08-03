@@ -13,30 +13,45 @@ var walk_right := true
 var walk_up := false
 var walk_down := false
 var jump := false
+var crouch := false
+var attack := false
 var velocity := Vector2()
 var is_colliding := false
+var is_under_object := false
 
 onready var _root: Main = get_tree().get_root().get_node("Root")
 onready var _fx_player: FXPlayer = _root.get_node("FXPlayer")
 var collision_sound = preload("res://Assets/Sound/FX/wall_collision.wav")
 
 func _ready():
-	get_node("Area2D").connect("area_entered", self, "_on_hitbox_collision")
+	$Area2D.connect("area_entered", self, "_on_hitbox_collision")
+	$Weapon/Area2D.connect("area_entered", self, "_on_weapon_collision")
+	$RayCast2D.enabled = true
 
 func execute_action(action: String):
 	print("executing ", action)
 	if action == "jump":
 		jump = true
+	if action == "crouch":
+		crouch = true
+	if action == "attack":
+		$AnimationPlayer.play("Attack")
+		attack = true
 		
 func kill():
 	queue_free()
 	
 func _on_hitbox_collision(value):
-	print(value.name)
 	var collider = value.get_parent()
-	print(collider.name)
 	if (collider.is_in_group("obstacles")):
 		kill()
+	elif (collider.is_in_group("enemies")):
+		kill()
+
+func _on_weapon_collision(value):
+	var collider = value.get_parent()
+	if collider.is_in_group("enemies"):
+		collider.queue_free()
 	
 func _physics_process(delta: float):
 	handle_motion(delta)
@@ -89,6 +104,16 @@ func handle_motion(delta: float):
 	if jump:
 		jump = false
 		velocity.y -= JUMP_FORCE
+		
+		
+	if crouch and not is_under_object and $RayCast2D.is_colliding():
+		is_under_object = true
+	if crouch and is_under_object and not $RayCast2D.is_colliding():
+		crouch = false
+	if crouch:
+		scale.y = 0.5
+	else:
+		scale.y = 1.0
 	
 	velocity.y += GRAVITY
 	

@@ -10,7 +10,6 @@ var qte_duration := 1.0
 
 var actions = ["jump", "crouch", "attack"]
 onready var buttons = [_buttons_container.get_node("TopButton"), _buttons_container.get_node("RightButton"), _buttons_container.get_node("BottomButton"), _buttons_container.get_node("LeftButton")]
-var expected_action := ""
 var executed_action := ""
 var player_to_notify: Player = null
 
@@ -24,8 +23,7 @@ func _ready():
 		var btn = button as Button
 		btn.connect("pressed", self, "_register_action", [btn])
 
-func start_qte(action: String, player: Player):
-	expected_action = action
+func start_qte(player: Player):
 	player_to_notify = player
 	executed_action = ""
 	
@@ -56,8 +54,7 @@ func _process(delta):
 			_end_qte()
 		
 		if not executed_action.empty():
-			if executed_action == expected_action:
-				player_to_notify.execute_action(expected_action)
+			player_to_notify.execute_action(executed_action)
 			_end_qte()
 			
 func _register_action(button: Button):

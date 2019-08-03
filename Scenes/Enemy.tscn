@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scenes/QTETrigger.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/World/Enemy.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 25, 25 )
+
+[node name="Node2D" type="Node2D"]
+
+[node name="QTETrigger" parent="." instance=ExtResource( 1 )]
+position = Vector2( -35, 0 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="Sprite" type="Sprite" parent="." groups=[
+"enemies",
+]]
+modulate = Color( 0, 0.345098, 0.623529, 1 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 2 )
+
+[node name="Area2D" type="Area2D" parent="Sprite"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/Area2D"]
+shape = SubResource( 1 )

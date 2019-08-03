@@ -10,5 +10,4 @@ func _ready():
 	var triggers = get_tree().get_nodes_in_group("qte_triggers")
 	for elem in triggers:
 		var trigger := elem as QTETrigger
-		print("connecting ", trigger, trigger.name)
-		trigger.connect("quick_time_event", qte_ui, "start_qte", [trigger.action, $Player])
+		trigger.connect("quick_time_event", qte_ui, "start_qte", [$Player])
