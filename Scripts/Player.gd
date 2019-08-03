@@ -37,9 +37,20 @@ func execute_action(action: String):
 	if action == "attack":
 		$AnimationPlayer.play("Attack")
 		attack = true
+
+func win(value):
+	print("WIN!!!")
+	stop()
+
+func stop():
+	scale.y = 1
+	set_physics_process(false)
 		
 func kill():
-	queue_free()
+	stop()
+	$Sprite.visible = false
+	$Particles2D.emitting = true
+	$Particles2D.restart()
 	
 func _on_hitbox_collision(value):
 	var collider = value.get_parent()
@@ -52,6 +63,8 @@ func _on_weapon_collision(value):
 	var collider = value.get_parent()
 	if collider.is_in_group("enemies"):
 		collider.queue_free()
+		$AnimationPlayer.seek(0)
+		$AnimationPlayer.pause_mode = true
 	
 func _physics_process(delta: float):
 	handle_motion(delta)

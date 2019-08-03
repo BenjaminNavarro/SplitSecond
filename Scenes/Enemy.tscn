@@ -9,7 +9,7 @@ extents = Vector2( 25, 25 )
 [node name="Node2D" type="Node2D"]
 
 [node name="QTETrigger" parent="." instance=ExtResource( 1 )]
-position = Vector2( -35, 0 )
+position = Vector2( -45, 0 )
 scale = Vector2( 0.5, 0.5 )
 
 [node name="Sprite" type="Sprite" parent="." groups=[

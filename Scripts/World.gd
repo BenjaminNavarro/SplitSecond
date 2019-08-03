@@ -11,3 +11,9 @@ func _ready():
 	for elem in triggers:
 		var trigger := elem as QTETrigger
 		trigger.connect("quick_time_event", qte_ui, "start_qte", [$Player])
+	$LevelEnd.connect("area_entered", self, "win")
+
+func win(value):
+	$Player.win(value)
+	$LevelEnd/CollisionShape2D/CPUParticles2D.emitting = true
+	$LevelEnd/CollisionShape2D/CPUParticles2D.restart()
