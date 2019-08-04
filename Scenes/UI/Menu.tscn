@@ -43,8 +43,8 @@ __meta__ = {
 
 [node name="Title" type="Label" parent="HBoxContainer"]
 modulate = Color( 0.815686, 0.160784, 0.160784, 1 )
-margin_left = 269.0
-margin_right = 530.0
+margin_left = 223.0
+margin_right = 576.0
 margin_bottom = 62.0
 custom_fonts/font = SubResource( 1 )
-text = "GTMK2019"
+text = "SPLIT SECOND"

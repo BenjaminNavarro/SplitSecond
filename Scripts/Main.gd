@@ -6,8 +6,12 @@ var settings: Settings = Settings.new()
 var scene_manager: SceneManager = SceneManager.new(self)
 
 export var skip_menu := false
+# warning-ignore:unused_class_variable
+export var current_level := 0
 
 func _ready():
+	randomize()
+	
 	# warning-ignore:return_value_discarded
 	settings.connect("music_changed", self, "_set_music")
 	# warning-ignore:return_value_discarded

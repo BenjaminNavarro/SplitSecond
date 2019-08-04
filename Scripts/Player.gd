@@ -3,7 +3,7 @@ class_name Player
 
 export var WALK_FORCE = 2000
 export var WALK_MIN_SPEED = 10
-export var WALK_MAX_SPEED = 400
+export var WALK_MAX_SPEED = 350
 export var STOP_FORCE = 2000
 export var JUMP_FORCE = 2000
 export var GRAVITY = 200
@@ -18,26 +18,39 @@ var attack := false
 var velocity := Vector2()
 var is_colliding := false
 var is_under_object := false
+var crouch_timer: Timer
 
 onready var _root: Main = get_tree().get_root().get_node("Root")
 onready var _fx_player: FXPlayer = _root.get_node("FXPlayer")
 var collision_sound = preload("res://Assets/Sound/FX/wall_collision.wav")
 
+signal died
+
 func _ready():
+	# warning-ignore:return_value_discarded
 	$Area2D.connect("area_entered", self, "_on_hitbox_collision")
+	# warning-ignore:return_value_discarded
 	$Weapon/Area2D.connect("area_entered", self, "_on_weapon_collision")
 	$RayCast2D.enabled = true
 
 func execute_action(action: String):
-	print("executing ", action)
 	if action == "jump":
 		jump = true
 	if action == "crouch":
 		crouch = true
+		is_under_object = false
+		crouch_timer = Timer.new()
+# warning-ignore:return_value_discarded
+		crouch_timer.connect("timeout", self, "_stop_crouching")
+		add_child(crouch_timer)
+		crouch_timer.set_wait_time(1)
+		crouch_timer.one_shot = true
+		crouch_timer.start()
 	if action == "attack":
 		$AnimationPlayer.play("Attack")
 		attack = true
 
+# warning-ignore:unused_argument
 func win(value):
 	print("WIN!!!")
 	stop()
@@ -51,16 +64,20 @@ func kill():
 	$Sprite.visible = false
 	$Particles2D.emitting = true
 	$Particles2D.restart()
+	$Area2D.disconnect("area_entered", self, "_on_hitbox_collision")
 	
-func _on_hitbox_collision(value):
-	var collider = value.get_parent()
+	emit_signal("died")
+	
+func _on_hitbox_collision(collider):
+	#var collider = value.get_parent()
+	#print(value.name, ", ", collider.name)
 	if (collider.is_in_group("obstacles")):
 		kill()
 	elif (collider.is_in_group("enemies")):
 		kill()
 
-func _on_weapon_collision(value):
-	var collider = value.get_parent()
+func _on_weapon_collision(collider):
+	# var collider = value.get_parent()
 	if collider.is_in_group("enemies"):
 		collider.queue_free()
 		$AnimationPlayer.seek(0)
@@ -118,15 +135,16 @@ func handle_motion(delta: float):
 		jump = false
 		velocity.y -= JUMP_FORCE
 		
-		
 	if crouch and not is_under_object and $RayCast2D.is_colliding():
 		is_under_object = true
-	if crouch and is_under_object and not $RayCast2D.is_colliding():
+	elif crouch and is_under_object and not $RayCast2D.is_colliding():
 		crouch = false
 	if crouch:
 		scale.y = 0.5
+		$RayCast2D.scale.y = 2.0
 	else:
 		scale.y = 1.0
+		$RayCast2D.scale.y = 1.0
 	
 	velocity.y += GRAVITY
 	
@@ -144,3 +162,8 @@ func handle_motion(delta: float):
 			_fx_player.play_at(collision_sound, position)
 	else:
 		is_colliding = false
+		
+func _stop_crouching():
+	if not $RayCast2D.is_colliding():
+		crouch = false
+		is_under_object = false
