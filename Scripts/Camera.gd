@@ -7,9 +7,8 @@ func _ready():
 	_reposition_camera()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _physics_process(delta):
 	_reposition_camera()
-
 
 func _reposition_camera():
 	position.x = player.position.x + 160
