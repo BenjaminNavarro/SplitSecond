@@ -17,12 +17,26 @@ scale = Vector2( 0.5, 0.8 )
 [node name="Area2D" type="Area2D" parent="." groups=[
 "enemies",
 ]]
-rotation = 0.785398
-scale = Vector2( 0.57, 0.57 )
+position = Vector2( 0, 5 )
+scale = Vector2( 0.6, 0.6 )
 
 [node name="Sprite" type="Sprite" parent="Area2D"]
-modulate = Color( 0, 0.345098, 0.623529, 1 )
 texture = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 1 )
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 25
+one_shot = true
+explosiveness = 1.0
+emission_shape = 2
+emission_rect_extents = Vector2( 15, 15 )
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 100.0
+initial_velocity_random = 0.85
+angle_random = 1.0
+scale_amount = 10.0
+color = Color( 0.639216, 0.576471, 0.517647, 1 )

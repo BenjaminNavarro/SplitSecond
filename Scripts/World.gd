@@ -36,7 +36,7 @@ func win(value):
 	_root.current_level += 1
 # warning-ignore:return_value_discarded
 	next_level_timer.connect("timeout", _root.scene_manager, "load_level", [_root.current_level])
-	next_level_timer.wait_time = 3
+	next_level_timer.wait_time = 3.7
 	next_level_timer.one_shot = true
 	next_level_timer.start()
 	
@@ -55,6 +55,6 @@ func player_died():
 	else:
 		# warning-ignore:return_value_discarded
 		next_level_timer.connect("timeout", _root.scene_manager, "load_level", [_root.current_level])
-	next_level_timer.wait_time = 3
+	next_level_timer.wait_time = 2
 	next_level_timer.one_shot = true
 	next_level_timer.start()

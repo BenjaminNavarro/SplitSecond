@@ -4,7 +4,7 @@
 [ext_resource path="res://Scenes/UI/MenuItem.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/Fonts/Roboto-Black.ttf" type="DynamicFontData" id=3]
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=1]
 size = 52
 font_data = ExtResource( 3 )
 
@@ -43,5 +43,5 @@ modulate = Color( 0.815686, 0.160784, 0.160784, 1 )
 margin_left = 309.0
 margin_right = 491.0
 margin_bottom = 62.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 1 )
 text = "Options"

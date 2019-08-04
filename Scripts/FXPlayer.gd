@@ -3,17 +3,17 @@ extends Node2D
 class_name FXPlayer
 
 export var fx_players_count := 10
+var current_player := 0
 
 func _ready():
 	for i in range(fx_players_count):
 		add_child(AudioStreamPlayer2D.new())
+	enable(true)
 
 func _get_fx_player() -> AudioStreamPlayer2D:
-	for element in get_children():
-		var player := element as AudioStreamPlayer2D
-		if not player.playing:
-			return player
-	return null
+	var player = get_children()[current_player]
+	current_player = (current_player + 1) % fx_players_count
+	return player
 
 func enable(state: bool):
 	for element in get_children():
@@ -30,8 +30,10 @@ func play(stream: AudioStream):
 func play_at(stream: AudioStream, position: Vector2):
 	var player := _get_fx_player()
 	if player:
+		player.seek(0)
 		player.stream = stream
 		player.position = position
+		player.stream_paused = false
 		player.playing = true
 	else:
 		print("All FX players busy, can't play stream", stream)

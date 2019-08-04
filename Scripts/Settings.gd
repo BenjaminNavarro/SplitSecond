@@ -11,13 +11,12 @@ signal fx_changed
 func load_settings():
 	var err = _config.load("user://settings.cfg")
 	if err == OK:
-		music = _config.get_value("audio", "music", true)
-		fx = _config.get_value("audio", "fx", true)
+		set_music(_config.get_value("audio", "music", true))
+		set_fx(_config.get_value("audio", "fx", true))
 	else:
 		print("Can't open the settings file")
-		
-	emit_signal("music_changed", music)
-	emit_signal("fx_changed", fx)
+		set_music(true)
+		set_fx(true)
 
 func save_setting():
 	if _config.save("user://settings.cfg") != OK:

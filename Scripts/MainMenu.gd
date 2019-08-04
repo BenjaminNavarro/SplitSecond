@@ -11,6 +11,12 @@ func _ready():
 	# warning-ignore:return_value_discarded
 	$Exit/Button.connect("button_down", self, "exit_game")
 	
+	#var os := OS.get_name()
+	#if os == "Windows" or os == "OSX" or os == "UWP" or os == "X11":
+	#	$Exit.visible = true
+	#else:
+	#	$Exit.visible = false
+	
 func _process(delta):
 	if Input.is_action_just_pressed("ui_accept"):
 		_root.scene_manager.load_game()	

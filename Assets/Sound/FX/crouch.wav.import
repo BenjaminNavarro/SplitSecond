@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/crouch.wav-63e1c80b55e33c58cd2b4c4c1f96ed7e.sample"
+
+[deps]
+
+source_file="res://Assets/Sound/FX/crouch.wav"
+dest_files=[ "res://.import/crouch.wav-63e1c80b55e33c58cd2b4c4c1f96ed7e.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

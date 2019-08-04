@@ -33,8 +33,3 @@ func next_screen():
 		_qte_prompt.qte_duration = 10.0
 	else:
 		$Screens.get_children()[current_screen].visible = true
-
-func _input(event):
-	if Input.is_action_just_pressed("ui_accept"):
-		if tutorial_in_progress:
-			next_screen()

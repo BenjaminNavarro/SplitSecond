@@ -37,7 +37,6 @@ func start_qte(player: Player):
 	qte_started = true
 	
 	var indexes = _generate_random_indexes()
-	print(indexes)
 	for i in range(buttons.size()):
 		var btn = buttons[i] as Button
 		if indexes[i] < actions.size():
